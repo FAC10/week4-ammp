@@ -1,0 +1,30 @@
+{
+  "name": "ammp-autocompletion-engine",
+  "version": "1.0.0",
+  "description": "ammp autocompletion engine app\\",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server",
+    "dev": "nodemon src/server",
+    "test": "tape \"src/**/*.test.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FAC10/week4-ammp.git"
+  },
+  "keywords": [
+    "autocomletion",
+    "dictionary",
+    "instant"
+  ],
+  "author": "ammp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FAC10/week4-ammp/issues"
+  },
+  "homepage": "https://github.com/FAC10/week4-ammp#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "nodemon": "^1.11.0"
+  }
+}
