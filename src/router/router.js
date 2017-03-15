@@ -6,7 +6,7 @@ module.exports = function(request, response) {
   if (url === '/') {
     handlers.handlersHomepage(request, response);
   }
-  else if ((url.indexOf(assets)!== -1){
+  else if ((url.indexOf(assets)!== -1)){
     handlers.handleAssets(request, response);
 
   } else {
