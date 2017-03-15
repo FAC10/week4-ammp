@@ -1,11 +1,34 @@
+
+var  searchDOM = document.getElementById('js-search');
+const resultDOM = document.getElementById('js-result');
+var dataList = document.getElementById('datalist');
+var dummyArray = ['maja', 'piotr', 'martha', 'akin'];
+
+searchDOM.addEventListener('keyup', generateDatalist);
+
+function generateDatalist(err, res) {
+  dummyArray.forEach(function(item) {
+    var option = document.createElement('option');
+    option.value = item;
+    dataList.appendChild(option);
+  });
+}
+
 // ************************************************************
 // HANDLE INPUT
 // ************************************************************
 /**
  * Module handling input
  */
+
+
+// ************************************************************
+// RENDER
+// ************************************************************
+
+
 (function() {
-  const searchDOM = document.getElementById('js-search');
+
   searchDOM.addEventListener('keyup', handleText);
 
   function handleText(e) {
@@ -13,15 +36,6 @@
     fetch('GET', `http://localhost:4000/?search=${encodeURIComponent(e.target.value)}`, renderResult);
   }
 }());
-
-
-
-// ************************************************************
-// RENDER
-// ************************************************************
-
-const resultDOM = document.getElementById('js-result');
-
 
 /**
  * Render results in DOM
