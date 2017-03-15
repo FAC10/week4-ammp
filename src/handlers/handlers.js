@@ -36,11 +36,9 @@ handlers.serveAssets = function(request, response) {
 
 
 handlers.serveResult = function(request, response) {
-  // console.log('handler', request.url);
   var searchQuery = url.parse(request.url, true).query.search;
 
-  { /* console.log('Search query: ',searchQuery); */ }
-  fs.readFile(path.join(__dirname, '..', 'dummy.txt'), 'utf8', function(err, file) {
+  fs.readFile(path.join(__dirname, '..', 'words.txt'), 'utf8', function(err, file) {
     if (err) console.log('OH GOD !!!error: ', err);
 
     var wordsArr = file.slice(0, -1).split('\n');
@@ -48,18 +46,15 @@ handlers.serveResult = function(request, response) {
       var pattern = new RegExp(searchQuery, 'gi');
       return pattern.test(word);
     });
+
+    console.log(matchingWordArr.length);
+
     response.writeHead(200, {
       'content-type': 'application/json'
     });
-    response.end("{'hello':'hello'}");
 
-
-
+    response.end(JSON.stringify(matchingWordArr.slice(0, 100)));
   });
-
-  // fs.readFile(path.join(__dirname, '../../public', request.url), function (err, file) {
-  //   if (err) throw err;
-  //
 };
 
 
