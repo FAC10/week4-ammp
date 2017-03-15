@@ -31,7 +31,6 @@ const resultDOM = document.getElementById('js-result');
  */
 function renderResult(err, res) {
   resultDOM.innerHTML = '';
-  res = ['a', 'b', 'c'];
   res.forEach(item => {
     let liDOM = document.createElement('li');
     liDOM.textContent = item;
@@ -54,7 +53,6 @@ function renderResult(err, res) {
  * @returns {function} A callback called with err or parsed response
  */
 function fetch(method, url, callback) {
-  console.log(url);
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
