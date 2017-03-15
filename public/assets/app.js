@@ -68,5 +68,5 @@ function fetch(method, url, callback) {
     callback(new Error('server not found'));
   };
   xhr.open(method, url, true);
-  // xhr.send();
+  xhr.send();
 }
