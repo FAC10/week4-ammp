@@ -1,6 +1,9 @@
 // ************************************************************
 // HANDLE INPUT
 // ************************************************************
+/**
+ * Module handling input
+ */
 (function() {
   const searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
@@ -16,8 +19,24 @@
 // ************************************************************
 // RENDER
 // ************************************************************
+
+const resultDOM = document.getElementById('js-result');
+
+
+/**
+ * Render results in DOM
+ *
+ * @param  {Error object} err The js Error object
+ * @param  {json} res JSON response object
+ */
 function renderResult(err, res) {
-  console.log(err, res);
+  resultDOM.innerHTML = '';
+  res = ['a', 'b', 'c'];
+  res.forEach(item => {
+    let liDOM = document.createElement('li');
+    liDOM.textContent = item;
+    resultDOM.appendChild(liDOM);
+  });
 }
 
 
