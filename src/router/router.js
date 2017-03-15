@@ -3,7 +3,7 @@ var handlers = require('../handlers/handlers.js');
 
 module.exports = function(request, response) {
   var url = request.url;
-  console.log('request', request.url);
+  // console.log('request', request.url);
   if (url === '/') {
     handlers.serveHomepage(request, response);
 

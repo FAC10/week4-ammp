@@ -30,6 +30,7 @@ const resultDOM = document.getElementById('js-result');
  * @param  {json} res JSON response object
  */
 function renderResult(err, res) {
+  if (!res) {return;}
   resultDOM.innerHTML = '';
   res.forEach(item => {
     let liDOM = document.createElement('li');
