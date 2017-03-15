@@ -1,5 +1,30 @@
-console.log('app started!');
+// ************************************************************
+// HANDLE INPUT
+// ************************************************************
+(function() {
+  const searchDOM = document.getElementById('js-search');
+  searchDOM.addEventListener('keyup', handleText);
 
+  function handleText(e) {
+    if (e.target.value.length === 0) { return; }
+    fetch('GET', `http://localhost:4000/?search=${encodeURIComponent(e.target.value)}`, renderResult);
+  }
+}());
+
+
+
+// ************************************************************
+// RENDER
+// ************************************************************
+function renderResult(err, res) {
+  console.log(err, res);
+}
+
+
+
+// ************************************************************
+// FETCH
+// ************************************************************
 
 /**
  * A generic fetch request
@@ -10,6 +35,7 @@ console.log('app started!');
  * @returns {function} A callback called with err or parsed response
  */
 function fetch(method, url, callback) {
+  console.log(url);
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -23,5 +49,5 @@ function fetch(method, url, callback) {
     callback(new Error('server not found'));
   };
   xhr.open(method, url, true);
-  xhr.send();
+  // xhr.send();
 }
