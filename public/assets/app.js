@@ -59,7 +59,10 @@ function fetch(method, url, callback) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var parsedResponse = JSON.parse(xhr.responseText);
+      console.log('inside fetch');
       callback(null, parsedResponse);
+
+
     } else if (xhr.readyState === 4 && xhr.status === 404) {
       callback(new Error('Resource not found'));
     }

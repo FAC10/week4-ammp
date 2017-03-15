@@ -4,18 +4,20 @@ var handlers = module.exports = {};
 var querystring = require('querystring');
 var url = require('url');
 
-handlers.serveHomepage = function (request, response) {
-  fs.readFile(path.join(__dirname, '../..', '/public/index.html'), function (err, file) {
-    if (err) throw err;
-    response.writeHead(200, {'content-type': 'text/html'});
+handlers.serveHomepage = function(request, response) {
+  fs.readFile(path.join(__dirname, '../..', '/public/index.html'), function(err, file) {
+    if (err) console.log(err);
+    response.writeHead(200, {
+      'content-type': 'text/html'
+    });
     response.end(file);
   });
 };
 
-handlers.serveAssets = function (request, response) {
+handlers.serveAssets = function(request, response) {
   // console.log(request.url);
-  fs.readFile(path.join(__dirname, '../../public', request.url), function (err, file) {
-    if (err) throw err;
+  fs.readFile(path.join(__dirname, '../../public', request.url), function(err, file) {
+    if (err) console.log(err);
     var extension = request.url.split('.')[1];
     var extensionType = {
       'html': 'text/html',
@@ -24,25 +26,40 @@ handlers.serveAssets = function (request, response) {
       'ico': 'image/x-icon'
     };
 
-    response.writeHead(200, {'content-type': extensionType[extension]});
+    response.writeHead(200, {
+      'content-type': extensionType[extension]
+    });
     response.end(file);
   });
 };
 
 
 
-handlers.serveResult = function (request, response) {
+handlers.serveResult = function(request, response) {
   // console.log('handler', request.url);
-
   var searchQuery = url.parse(request.url, true).query.search;
-  console.log(searchQuery);
+
+  { /* console.log('Search query: ',searchQuery); */ }
+  fs.readFile(path.join(__dirname, '..', 'dummy.txt'), 'utf8', function(err, file) {
+    if (err) console.log('OH GOD !!!error: ', err);
+
+    var wordsArr = file.slice(0, -1).split('\n');
+    var matchingWordArr = wordsArr.filter(function(word) {
+      var pattern = new RegExp(searchQuery, 'gi');
+      return pattern.test(word);
+    });
+    response.writeHead(200, {
+      'content-type': 'application/json'
+    });
+    response.end("{'hello':'hello'}");
+
+
+
+  });
 
   // fs.readFile(path.join(__dirname, '../../public', request.url), function (err, file) {
   //   if (err) throw err;
   //
-  //   response.writeHead(200, {'content-type': extensionType[extension]});
-  //   response.end(file);
-  // });
 };
 
 
@@ -50,7 +67,9 @@ handlers.serveResult = function (request, response) {
 
 
 handlers.pageNotFound = function(request, response) {
-  response.writeHead(404, { 'content-type': 'text/html' });
+  response.writeHead(404, {
+    'content-type': 'text/html'
+  });
   response.write('<h1>404 Page Requested Cannot Be Found</h1>');
   response.end();
 };
