@@ -20,6 +20,7 @@ console.log('app.js started');
 
   function handleText(e) {
     // if (e.target.value.length === 0) { return; }
+    e.target.value = e.target.value.replace(/[^\w\s]/gi, '');
     fetch('GET', `https://ammp.herokuapp.com/search?q=${encodeURIComponent(e.target.value)}`, renderResult);
   }
 }());
