@@ -49,8 +49,7 @@ function getLettersOnly(searchQuery) {
 }
 
 handlers.serveResult = (request, response) => {
-  const searchQuery = url.parse(request.url, true).query.search;
-  // const searchQuery = url.parse(request.url, true).query.q;
+  const searchQuery = url.parse(request.url, true).query.q;
   const searchQuerySanitized = getLettersOnly(searchQuery);
 
   fs.readFile(path.join(__dirname, '..', 'wordsDummy.txt'), 'utf8', (err, file) => {
