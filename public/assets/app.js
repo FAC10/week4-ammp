@@ -1,4 +1,7 @@
+
 const resultDOM = document.getElementById('js-result');
+
+console.log('app.js started');
 
 // ************************************************************
 // HANDLE INPUT
@@ -8,23 +11,21 @@ const resultDOM = document.getElementById('js-result');
  */
 
 
-// ************************************************************
-// RENDER
-// ************************************************************
-
-
 (function() {
-  var searchDOM = document.getElementById('js-search');
+  const searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
 
   function handleText(e) {
-    if (e.target.value.length === 0) {
-      return;
-    }
+    if (e.target.value.length === 0) { return; }
     fetch('GET', `http://localhost:4000/?search=${encodeURIComponent(e.target.value)}`, renderResult);
+    // fetch('GET', `http://localhost:4000/search?q=${encodeURIComponent(e.target.value)}`, renderResult);
   }
 }());
 
+
+// ************************************************************
+// RENDER
+// ************************************************************
 /**
  * Render results in DOM
  *
@@ -32,6 +33,10 @@ const resultDOM = document.getElementById('js-result');
  * @param  {json} res JSON response object
  */
 function renderResult(err, res) {
+  if (err || (res && res.length) === 0) {
+    resultDOM.innerHTML = '<li>Sorry, we are unable to find any matching words</li>';
+    return;
+  }
   resultDOM.innerHTML = '';
   var hiddenResults = document.querySelector('.hidden-results');
   var searchDOM = document.getElementById('js-search');
