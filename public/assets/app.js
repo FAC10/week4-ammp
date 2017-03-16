@@ -1,10 +1,16 @@
+
+const resultDOM = document.getElementById('js-result');
+
 console.log('app.js started');
+
 // ************************************************************
 // HANDLE INPUT
 // ************************************************************
 /**
  * Module handling input
  */
+
+
 (function() {
   const searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
@@ -17,12 +23,9 @@ console.log('app.js started');
 }());
 
 
-
 // ************************************************************
 // RENDER
 // ************************************************************
-const resultDOM = document.getElementById('js-result');
-
 /**
  * Render results in DOM
  *
@@ -35,10 +38,16 @@ function renderResult(err, res) {
     return;
   }
   resultDOM.innerHTML = '';
+  var hiddenResults = document.querySelector('.hidden-results');
+  var searchDOM = document.getElementById('js-search');
+
+
+  hiddenResults.style.display = 'flex';
+  document.querySelector('#hidden-search').value = searchDOM.value;
   res.forEach(item => {
     let liDOM = document.createElement('li');
     liDOM.textContent = item;
-    resultDOM.appendChild(liDOM);
+    hiddenResults.appendChild(liDOM);
   });
 }
 
