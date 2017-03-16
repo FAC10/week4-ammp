@@ -16,7 +16,7 @@ console.log('app.js started');
   searchDOM.addEventListener('keyup', handleText);
 
   function handleText(e) {
-    if (e.target.value.length === 0) { return; }
+    // if (e.target.value.length === 0) { return; }
     // fetch('GET', `http://localhost:4000/?search=${encodeURIComponent(e.target.value)}`, renderResult);
     fetch('GET', `http://localhost:4000/search?q=${encodeURIComponent(e.target.value)}`, renderResult);
   }
@@ -45,6 +45,8 @@ function renderResult(err, res) {
 
   hiddenResults.style.display = 'flex';
   document.querySelector('#hidden-search').value = searchDOM.value;
+  console.log(searchDOM.value);
+
   var ulDOM = document.querySelector('.search_list');
   ulDOM.innerHTML = '';
   res.forEach(item => {
