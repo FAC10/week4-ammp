@@ -37,18 +37,23 @@ function renderResult(err, res) {
     resultDOM.innerHTML = '<li>Sorry, we are unable to find any matching words</li>';
     return;
   }
-  resultDOM.innerHTML = '';
+  // resultDOM.innerHTML = '';
+
   var hiddenResults = document.querySelector('.hidden-results');
   var searchDOM = document.getElementById('js-search');
 
 
   hiddenResults.style.display = 'flex';
   document.querySelector('#hidden-search').value = searchDOM.value;
+  var ulDOM = document.querySelector('.search_list');
+  ulDOM.innerHTML = '';
   res.forEach(item => {
     let liDOM = document.createElement('li');
     liDOM.textContent = item;
-    hiddenResults.appendChild(liDOM);
+    liDOM.className = 'search_list_item';
+    ulDOM.appendChild(liDOM);
   });
+
 }
 
 
