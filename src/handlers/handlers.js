@@ -44,8 +44,6 @@ function getMatchingWordArr(searchQuerySanitized, file) {
 }
 
 
-
-
 function getLettersOnly(searchQuery) {
   return searchQuery.replace(/[^a-z]/gi, '');
 }
