@@ -1,11 +1,22 @@
+
+
+const resultDOM = document.getElementById('js-result');
+
 // ************************************************************
 // HANDLE INPUT
 // ************************************************************
 /**
  * Module handling input
  */
+
+
+// ************************************************************
+// RENDER
+// ************************************************************
+
+
 (function() {
-  const searchDOM = document.getElementById('js-search');
+  var  searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
 
   function handleText(e) {
@@ -13,15 +24,6 @@
     fetch('GET', `http://localhost:4000/?search=${encodeURIComponent(e.target.value)}`, renderResult);
   }
 }());
-
-
-
-// ************************************************************
-// RENDER
-// ************************************************************
-
-const resultDOM = document.getElementById('js-result');
-
 
 /**
  * Render results in DOM

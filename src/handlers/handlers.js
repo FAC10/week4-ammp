@@ -37,17 +37,26 @@ handlers.serveAssets = function(request, response) {
 
 handlers.serveResult = function(request, response) {
   var searchQuery = url.parse(request.url, true).query.search;
+  var sanitisedSearchQuery = searchQuery.replace(/[^a-z]/gi, '');
+
 
   fs.readFile(path.join(__dirname, '..', 'words.txt'), 'utf8', function(err, file) {
     if (err) console.log('OH GOD !!!error: ', err);
 
-    var wordsArr = file.slice(0, -1).split('\n');
-    var matchingWordArr = wordsArr.filter(function(word) {
-      var pattern = new RegExp(searchQuery, 'gi');
-      return pattern.test(word);
-    });
 
-    console.log(matchingWordArr.length);
+
+    // var wordsArr = file.slice(0, -1).split('\n');
+    // var matchingWordArr = wordsArr.filter(function(word) {
+    //   var pattern = new RegExp(searchQuery, 'gi');
+    //   return pattern.test(word);
+    // });
+
+    // console.log(matchingWordArr.length);
+
+    var pattern = new RegExp(`\\b.*${sanitisedSearchQuery}.*\\b`, 'gi');
+
+    var matchingWordArr = file.match(pattern) || [];
+  
 
     response.writeHead(200, {
       'content-type': 'application/json'
