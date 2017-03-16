@@ -1,3 +1,4 @@
+console.log('app.js started');
 // ************************************************************
 // HANDLE INPUT
 // ************************************************************
@@ -10,7 +11,7 @@
 
   function handleText(e) {
     if (e.target.value.length === 0) { return; }
-    fetch('GET', `http://localhost:4000/?search=${encodeURIComponent(e.target.value)}`, renderResult);
+    fetch('GET', `http://localhost:4000/search?q=${encodeURIComponent(e.target.value)}`, renderResult);
   }
 }());
 
@@ -19,9 +20,7 @@
 // ************************************************************
 // RENDER
 // ************************************************************
-
 const resultDOM = document.getElementById('js-result');
-
 
 /**
  * Render results in DOM
@@ -30,6 +29,10 @@ const resultDOM = document.getElementById('js-result');
  * @param  {json} res JSON response object
  */
 function renderResult(err, res) {
+  if (err || (res && res.length) === 0) {
+    resultDOM.innerHTML = '<li>Sorry, we are unable to find any matching words</li>';
+    return;
+  }
   resultDOM.innerHTML = '';
   res.forEach(item => {
     let liDOM = document.createElement('li');
