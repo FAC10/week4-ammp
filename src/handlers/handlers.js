@@ -48,7 +48,7 @@ handlers.serveResult = (request, response) => {
   const searchQuery = url.parse(request.url, true).query.q;
   const searchQuerySanitized = getLettersOnly(searchQuery);
 
-  fs.readFile(path.join(__dirname, '..', 'wordsDummy.txt'), 'utf8', (err, file) => {
+  fs.readFile(path.join(__dirname, '..', 'words.txt'), 'utf8', (err, file) => {
     if (err) console.log('OH GOD !!!error: ', err);
 
     const matchingWordArr = getMatchingWordArr(searchQuerySanitized, file);
