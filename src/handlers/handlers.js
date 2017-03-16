@@ -17,6 +17,33 @@ handlers.serveHomepage = (request, response) => {
 };
 
 
+// handlers.serveAssets = (request, response) => {
+//   fs.readFile(path.join(__dirname, '..', '..', 'public', request.url), (err, file) => {
+//     if (err) console.log(err);
+//     const extension = request.url.split('.')[1];
+//     const extensionType = {
+//       'html': 'text/html',
+//       'css': 'text/css',
+//       'js': 'application/javascript',
+//       'ico': 'image/x-icon'
+//     };
+//
+//     response.writeHead(200, { 'content-type': extensionType[extension] });
+//     response.end(file);
+//   });
+// };
+
+function getContentType(url) {
+  const extension = url.split('.')[1];
+  const extensionType = {
+    'html': 'text/html',
+    'css': 'text/css',
+    'js': 'application/javascript',
+    'ico': 'image/x-icon'
+  };
+  return extensionType[extension];
+}
+
 handlers.serveAssets = (request, response) => {
   fs.readFile(path.join(__dirname, '..', '..', 'public', request.url), (err, file) => {
     if (err) console.log(err);
@@ -28,7 +55,7 @@ handlers.serveAssets = (request, response) => {
       'ico': 'image/x-icon'
     };
 
-    response.writeHead(200, { 'content-type': extensionType[extension] });
+    response.writeHead(200, { 'content-type': getContentType(request.url) });
     response.end(file);
   });
 };
@@ -83,4 +110,4 @@ handlers.pageNotFound = (request, response) => {
 };
 
 
-module.exports = {handlers, getMatchingWordArr, getLettersOnly};
+module.exports = {handlers, getMatchingWordArr, getLettersOnly, getContentType};
