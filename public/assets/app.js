@@ -14,6 +14,9 @@ console.log('app.js started');
 (function() {
   const searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
+  document.querySelector('.exit_button').addEventListener('click',function(){
+    document.querySelector('.hidden-results').style.display = 'none';
+  });
   document.querySelector('.hidden-search').addEventListener('click', function(event){
     searchDOM.focus();
   });
