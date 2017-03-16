@@ -53,7 +53,7 @@ handlers.serveResult = (request, response) => {
 
     const matchingWordArr = getMatchingWordArr(searchQuerySanitized, file);
 
-    response.writeHead(200, { 'content-type': 'application/json' });
+    response.writeHead(200, { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' });
     response.end(JSON.stringify(matchingWordArr.slice(0, 100)));
   });
 };
