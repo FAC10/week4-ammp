@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/server",
     "dev": "nodemon src/server",
-    "test": "tape \"src/**/*.test.js\""
+    "test": "tape \"src/**/*.test.js\" | faucet",
+    "test:watch": "nodemon -q -x 'npm test'"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,8 @@
   "homepage": "https://github.com/FAC10/week4-ammp#readme",
   "devDependencies": {
     "browser-sync": "^2.18.8",
-    "nodemon": "^1.11.0"
+    "faucet": "0.0.1",
+    "nodemon": "^1.11.0",
+    "tape": "^4.6.3"
   }
 }
