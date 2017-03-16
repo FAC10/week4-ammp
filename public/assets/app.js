@@ -1,5 +1,3 @@
-
-
 const resultDOM = document.getElementById('js-result');
 
 // ************************************************************
@@ -16,11 +14,13 @@ const resultDOM = document.getElementById('js-result');
 
 
 (function() {
-  var  searchDOM = document.getElementById('js-search');
+  var searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
 
   function handleText(e) {
-    if (e.target.value.length === 0) { return; }
+    if (e.target.value.length === 0) {
+      return;
+    }
     fetch('GET', `http://localhost:4000/?search=${encodeURIComponent(e.target.value)}`, renderResult);
   }
 }());
@@ -33,10 +33,16 @@ const resultDOM = document.getElementById('js-result');
  */
 function renderResult(err, res) {
   resultDOM.innerHTML = '';
+  var hiddenResults = document.querySelector('.hidden-results');
+  var searchDOM = document.getElementById('js-search');
+
+
+  hiddenResults.style.display = 'flex';
+  document.querySelector('#hidden-search').value = searchDOM.value;
   res.forEach(item => {
     let liDOM = document.createElement('li');
     liDOM.textContent = item;
-    resultDOM.appendChild(liDOM);
+    hiddenResults.appendChild(liDOM);
   });
 }
 
