@@ -14,9 +14,12 @@ console.log('app.js started');
 (function() {
   const searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
+  document.querySelector('.hidden-search').addEventListener('click', function(event){
+    searchDOM.focus();
+  });
 
   function handleText(e) {
-    if (e.target.value.length === 0) { return; }
+    // if (e.target.value.length === 0) { return; }
     // fetch('GET', `http://localhost:4000/?search=${encodeURIComponent(e.target.value)}`, renderResult);
     fetch('GET', `http://localhost:4000/search?q=${encodeURIComponent(e.target.value)}`, renderResult);
   }
@@ -37,18 +40,25 @@ function renderResult(err, res) {
     resultDOM.innerHTML = '<li>Sorry, we are unable to find any matching words</li>';
     return;
   }
-  resultDOM.innerHTML = '';
+  // resultDOM.innerHTML = '';
+
   var hiddenResults = document.querySelector('.hidden-results');
   var searchDOM = document.getElementById('js-search');
 
 
   hiddenResults.style.display = 'flex';
   document.querySelector('#hidden-search').value = searchDOM.value;
+  console.log(searchDOM.value);
+
+  var ulDOM = document.querySelector('.search_list');
+  ulDOM.innerHTML = '';
   res.forEach(item => {
     let liDOM = document.createElement('li');
     liDOM.textContent = item;
-    hiddenResults.appendChild(liDOM);
+    liDOM.className = 'search_list_item';
+    ulDOM.appendChild(liDOM);
   });
+
 }
 
 
