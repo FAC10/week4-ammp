@@ -45,9 +45,12 @@ body {
 }
 
 
+.search_list {
+    padding:0;
+}
+
 .search_list_item {
     list-style-type: none;
-    padding: 2%;
 }
 
 .exit_button {
