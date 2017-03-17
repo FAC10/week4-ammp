@@ -1,6 +1,15 @@
 # week4-ammp
 
-The spectacular ammp autocompletion engine
+Pluralsight search engine clone by the ammp team
+
+## User Story
+
+![pluralsight screenshot](./demo/pluralsight-screenshot.png)
+
+As a user I can start typing in the input box and:
+- results will be overlayed in full screen
+- I can see updated results and I continue typing
+- results page can be closed by clicking on the 'x' button
 
 
 
