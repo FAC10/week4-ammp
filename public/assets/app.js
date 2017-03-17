@@ -1,7 +1,5 @@
 const resultDOM = document.getElementById('js-result');
 
-console.log('app.js started');
-
 // ************************************************************
 // HANDLE INPUT
 // ************************************************************
