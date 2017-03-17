@@ -14,6 +14,9 @@ console.log('app.js started');
 (function() {
   const searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
+  document.querySelector('.exit_button').addEventListener('click',function(){
+    document.querySelector('.hidden-results').style.display = 'none';
+  });
   document.querySelector('.hidden-search').addEventListener('click', function(event){
     searchDOM.focus();
   });
@@ -21,6 +24,7 @@ console.log('app.js started');
   function handleText(e) {
     // if (e.target.value.length === 0) { return; }
     e.target.value = e.target.value.replace(/[^\w\s]/gi, '');
+    // fetch('GET', `http://localhost:4000/search?q=${encodeURIComponent(e.target.value)}`, renderResult);
     fetch('GET', `https://ammp.herokuapp.com/search?q=${encodeURIComponent(e.target.value)}`, renderResult);
   }
 }());

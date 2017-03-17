@@ -17,6 +17,33 @@ handlers.serveHomepage = (request, response) => {
 };
 
 
+// handlers.serveAssets = (request, response) => {
+//   fs.readFile(path.join(__dirname, '..', '..', 'public', request.url), (err, file) => {
+//     if (err) console.log(err);
+//     const extension = request.url.split('.')[1];
+//     const extensionType = {
+//       'html': 'text/html',
+//       'css': 'text/css',
+//       'js': 'application/javascript',
+//       'ico': 'image/x-icon'
+//     };
+//
+//     response.writeHead(200, { 'content-type': extensionType[extension] });
+//     response.end(file);
+//   });
+// };
+
+function getContentType(url) {
+  const extension = url.split('.')[1];
+  const extensionType = {
+    'html': 'text/html',
+    'css': 'text/css',
+    'js': 'application/javascript',
+    'ico': 'image/x-icon'
+  };
+  return extensionType[extension];
+}
+
 handlers.serveAssets = (request, response) => {
   fs.readFile(path.join(__dirname, '..', '..', 'public', request.url), (err, file) => {
     if (err) console.log(err);
@@ -28,7 +55,7 @@ handlers.serveAssets = (request, response) => {
       'ico': 'image/x-icon'
     };
 
-    response.writeHead(200, { 'content-type': extensionType[extension] });
+    response.writeHead(200, { 'content-type': getContentType(request.url) });
     response.end(file);
   });
 };
@@ -36,7 +63,18 @@ handlers.serveAssets = (request, response) => {
 
 function getMatchingWordArr(searchQuerySanitized, file) {
   const pattern = new RegExp(`\\b.*${searchQuerySanitized}.*\\b`, 'gi');
-  return file.match(pattern) || [];
+
+  const matchingWordArr = [];
+
+  let match;
+  let numberOfMatches = 0;
+
+  while ((match = pattern.exec(file)) !== null && numberOfMatches < 100) {
+    matchingWordArr.push(match[0]);
+    numberOfMatches++;
+  }
+
+  return matchingWordArr;
 }
 
 
@@ -51,10 +89,14 @@ handlers.serveResult = (request, response) => {
   fs.readFile(path.join(__dirname, '..', 'words.txt'), 'utf8', (err, file) => {
     if (err) console.log('OH GOD !!!error: ', err);
 
+    console.log('hi from local txt');
+    const t0 = Date.now();
     const matchingWordArr = getMatchingWordArr(searchQuerySanitized, file);
+    const t1 = Date.now();
+    console.log('duration', t1-t0, 'ms');
 
     response.writeHead(200, { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-    response.end(JSON.stringify(matchingWordArr.slice(0, 100)));
+    response.end(JSON.stringify(matchingWordArr));
   });
 };
 
@@ -68,4 +110,4 @@ handlers.pageNotFound = (request, response) => {
 };
 
 
-module.exports = {handlers, getMatchingWordArr, getLettersOnly};
+module.exports = {handlers, getMatchingWordArr, getLettersOnly, getContentType};
