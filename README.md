@@ -1,8 +1,17 @@
 # week4-ammp
 
 The spectacular ammp autocompletion engine
+We started out with a simple plan to create a front end web page which makes a call to a back end server with a few assets which it serves as well as sending a query (the user's input) to this back end which it searches through and returns a matching string.
 
+## Sanitizing the front and back end
+In order to prevent undesirable input such as javascript functions being passed into our input or unexpected special characters we filtered these out of our front end using the replace string method with a regular expression(RegExp).
 
+```javascript
+var desiredString = stringToReplace.replace(/[^\w\s]/gi, '');
+```
+This RegExp sets up a whitelist of permitted characters and replaces those that are not with an empty string. The whitespace ( `\w` ) & underscores ( `\s` ) are included in our safe list.
+
+By removing these unwanted characters from the search we filter out characters that are not going to match our stored data and prevent tampering. We also repeat a similar pattern in our back end on the (*highly unlikely*) event that our data was tampered with onroute to the back end. 
 
 ## Performance of generating an array using `filter`, `match`, `exec`
 
