@@ -1,4 +1,3 @@
-
 const resultDOM = document.getElementById('js-result');
 
 console.log('app.js started');
@@ -14,10 +13,10 @@ console.log('app.js started');
 (function() {
   const searchDOM = document.getElementById('js-search');
   searchDOM.addEventListener('keyup', handleText);
-  document.querySelector('.exit_button').addEventListener('click',function(){
+  document.querySelector('.exit_button').addEventListener('click', function() {
     document.querySelector('.hidden-results').style.display = 'none';
   });
-  document.querySelector('.hidden-search').addEventListener('click', function(event){
+  document.querySelector('.hidden-search').addEventListener('click', function(event) {
     searchDOM.focus();
   });
 
@@ -33,6 +32,8 @@ console.log('app.js started');
 // ************************************************************
 // RENDER
 // ************************************************************
+var errorDiv = document.createElement('div');
+errorDiv.className = 'error-message';
 /**
  * Render results in DOM
  *
@@ -40,14 +41,10 @@ console.log('app.js started');
  * @param  {json} res JSON response object
  */
 function renderResult(err, res) {
-  if (err || (res && res.length) === 0) {
-    resultDOM.innerHTML = '<li>Sorry, we are unable to find any matching words</li>';
-    return;
-  }
-  // resultDOM.innerHTML = '';
-
+console.log('err',err,'result',res);
   var hiddenResults = document.querySelector('.hidden-results');
   var searchDOM = document.getElementById('js-search');
+  errorDiv.innerText = '';
 
 
   hiddenResults.style.display = 'flex';
@@ -63,6 +60,10 @@ function renderResult(err, res) {
     ulDOM.appendChild(liDOM);
   });
 
+  if (err || (res && res.length) === 0) {
+    errorDiv.innerText = 'Sorry, we are unable to find any matching words';
+    hiddenResults.appendChild(errorDiv);
+  }
 }
 
 
