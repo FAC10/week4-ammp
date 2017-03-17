@@ -70,3 +70,7 @@ function getMatchingWordArr(searchQuerySanitized, file) {
 }
 // Time to get results: 10 ms
 ```
+
+## How to run our tests
+- ```npm install```
+- ```npm test```
