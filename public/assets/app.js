@@ -40,10 +40,6 @@ console.log('app.js started');
  * @param  {json} res JSON response object
  */
 function renderResult(err, res) {
-  if (err || (res && res.length) === 0) {
-    resultDOM.innerHTML = '<li>Sorry, we are unable to find any matching words</li>';
-    return;
-  }
   // resultDOM.innerHTML = '';
 
   var hiddenResults = document.querySelector('.hidden-results');
@@ -63,6 +59,13 @@ function renderResult(err, res) {
     ulDOM.appendChild(liDOM);
   });
 
+    var errorDiv = document.createElement('div');
+    errorDiv.innerText = '';
+  if (err || (res && res.length) === 0) {
+    errorDiv.innerText = 'Sorry, we are unable to find any matching words';
+    hiddenResults.appendChild(errorDiv);
+    // return;
+  }
 }
 
 
